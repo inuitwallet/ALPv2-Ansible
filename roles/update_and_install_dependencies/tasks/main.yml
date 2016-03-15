@@ -7,6 +7,8 @@
   apt:
     update_cache: yes
     upgrade: dist
+
+- name: install dependencies
     install: "{{ item }}"
     state: latest
   with_items:
@@ -15,3 +17,4 @@
     - git
     - nginx
     - nginx-extras
+    - ansible
