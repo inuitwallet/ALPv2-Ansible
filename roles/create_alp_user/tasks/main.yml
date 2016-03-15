@@ -1,0 +1,18 @@
+---
+
+#####
+##  Install the ALP user
+#####
+
+- name: create alp group
+  become: yes
+  group:
+    name: alp
+
+- name: create alp user
+  become: yes
+  user:
+    name: alp
+    shell: /bin/bash
+    state: present
+    group: alp

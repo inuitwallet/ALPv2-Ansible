@@ -1,0 +1,53 @@
+---
+
+#####
+##   The main playbook for installing ALPv2.
+##   Intended for use with a modern Ubuntu version
+##   First, ensure that your server is listed in the inventory file
+##   You need to be able to access the sewrver through SSH keys
+##   The user you log in as needs to have sudo rights
+
+- name: Install ALPv2
+
+  #####
+  ##  This playbook is intended to be run on the server that it is configuring
+  hosts: 127.0.0.1
+  connection: local
+
+  #####
+  ##  You need to enter the name of your server user here
+  remote_user:
+
+  #####
+  ##  Fill in these variables before running
+  vars:
+
+    #####
+    ## ALP
+    pool_name: NuPool
+
+    #####
+    ## PostgreSQL
+    postgresql_version: 9.5
+    root_postgresql_password: Sincere^Split#Rich%Cap&Offer&Far#Out%10
+    alp_user_postgres_password: Wake$Effective&Extreme#Relation!Horse&Material^Wheel^10
+
+    #####
+    ## Nginx
+    pool_server_domain_name: nupool.net
+
+    #####
+    ## LetsEncrypt
+    letsencrypt_admin_email: sam@mj2p.co.uk
+
+  #####
+  ##  These roles will be run in this order
+  roles:
+    - update_and_install_dependencies
+    - create_alp_user
+    - install_postgresql
+    - install_nginx
+    #- letsencrypt
+    #- install_nud
+    - install_alp2
+    #- install_supervisor

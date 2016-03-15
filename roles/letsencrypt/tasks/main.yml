@@ -1,0 +1,26 @@
+---
+
+#####
+##  Get a free SSL certificate from Lets encrypt
+
+- name: clone letsencrypt repo
+  git:
+    repo: https://github.com/letsencrypt/letsencrypt
+    dest: ~/letsencrypt
+
+- name: stop nginx
+  become: yes
+  supervisorctl:
+    name: nginx
+    state: stopped
+  ignore_errors: yes
+
+- name: run letsencrypt client
+  shell: ./letsencrypt-auto certonly --standalone --agree-tos --keep-until-expiring --email {{ letsencrypt_admin_email }} --rsa-key-size 4096 --text -d {{ pool_server_domain_name }}
+  args:
+    chdir: ~/letsencrypt
+  register: output
+
+- name: show output
+  debug:
+    msg: "{{ output }}"

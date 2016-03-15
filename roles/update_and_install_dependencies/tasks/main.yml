@@ -1,0 +1,17 @@
+---
+
+#####
+## Update apt, upgrade and install dependencies
+
+- name: update and upgrade
+  apt:
+    update_cache: yes
+    upgrade: dist
+    install: {{ item }}
+    state: latest
+  with_items:
+    - python2.7
+    - virtualenv
+    - git
+    - nginx
+    - nginx-extras

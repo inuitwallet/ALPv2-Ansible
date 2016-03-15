@@ -1,0 +1,84 @@
+---
+
+#####
+##  Install PostgreSQL
+#####
+
+- name: install postgresql key
+  become: yes
+  apt_key:
+    keyserver: keyserver.ubuntu.com
+    id: B97B0AFCAA1A47F044F244A07FCC7D46ACCC4CF8
+
+- name: install postgresql repo
+  become: yes
+  apt_repository:
+    repo: 'deb http://apt.postgresql.org/pub/repos/apt/ trusty-pgdg main'
+    state: present
+
+- name: install postgresql packages
+  become: yes
+  apt:
+    name: "{{ item }}"
+    state: latest
+    update_cache: yes
+  with_items:
+    - postgresql-{{ postgresql_version }}
+    - postgresql-server-dev-{{ postgresql_version }}
+    - python-psycopg2
+
+- name: Start postgresql
+  become: yes
+  service:
+    name: postgresql
+    state: started
+    enabled: no
+
+- name: Wait for PostgreSQL to start up
+  wait_for:
+    port: 5432
+    delay: 4
+    timeout: 10
+
+- name: Change default postgres user password
+  shell: echo "ALTER USER postgres WITH PASSWORD '{{ root_postgresql_password }}';" | psql
+  become_user: postgres
+  ignore_errors: yes
+
+- name: Disable postgresql daemon
+  become: yes
+  service:
+    name: postgresql
+    state: stopped
+    enabled: no
+
+- name: Create required postgresql directories
+  become: yes
+  file:
+    path: /var/run/postgresql/{{ postgresql_version }}-main.pg_stat_tmp
+    owner: postgres
+    group: postgres
+    mode: 0755
+    state: directory
+
+- name: ensure that correct /var/run directory is created on startup
+  lineinfile:
+    dest: /etc/rc.local
+    line: 'if [ ! -d /var/run/postgresql/{{ postgresql_version }}-main.pg_stat_tmp ]; then mkdir -p /var/run/postgresql/{{ postgresql_version }}-main.pg_stat_tmp && chown -R postgres:postgres /var/run/postgresql; fi'
+    insertbefore: exit 0
+  become: yes
+
+- name: create alp database
+  become: yes
+  postgresql_db:
+    name: alp
+
+- name: create alp user
+  become: yes
+  postgres_user:
+    name: alp
+    db: alp
+    priv: ALL
+    role_attr_flags: LOGIN
+    password: {{ alp_user_postgres_password }}
+
