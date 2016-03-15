@@ -9,11 +9,12 @@
     upgrade: dist
 
 - name: install dependencies
-    install: "{{ item }}"
+    name: "{{ item }}"
     state: latest
   with_items:
-    - python2.7
-    - virtualenv
+    - python
+    - python-pip
+    - python-virtualenv
     - git
     - nginx
     - nginx-extras
