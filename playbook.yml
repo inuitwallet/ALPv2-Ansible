@@ -15,10 +15,6 @@
   connection: local
 
   #####
-  ##  You need to enter the name of your server user here
-  remote_user:
-
-  #####
   ##  Fill in these variables before running
   vars:
 
