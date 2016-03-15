@@ -16,6 +16,8 @@
     state: latest
   with_items:
     - python
+    - python-dev
+    - libffi-dev
     - python-pip
     - python-virtualenv
     - git
