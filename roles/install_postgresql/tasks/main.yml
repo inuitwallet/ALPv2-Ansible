@@ -41,6 +41,8 @@
     timeout: 10
 
 - name: Change default postgres user password
+  become: yes
+  become_user: postgres
   postgresql_user:
     name: postgres
     password: "{{ root_postgresql_password }}"
@@ -55,19 +57,21 @@
     state: directory
 
 - name: ensure that correct /var/run directory is created on startup
+  become: yes
   lineinfile:
     dest: /etc/rc.local
     line: 'if [ ! -d /var/run/postgresql/{{ postgresql_version }}-main.pg_stat_tmp ]; then mkdir -p /var/run/postgresql/{{ postgresql_version }}-main.pg_stat_tmp && chown -R postgres:postgres /var/run/postgresql; fi'
     insertbefore: exit 0
-  become: yes
 
 - name: create alp database
   become: yes
+  become_user: postgres
   postgresql_db:
     name: alp
 
 - name: create alp user
   become: yes
+  become_user: postgres
   postgresql_user:
     name: alp
     db: alp
