@@ -4,42 +4,49 @@
 ##  Install ALPv2 Server
 
 - name: get ALPv2 code
+  become: yes
   become_user: alp
   git:
     repo: https://github.com/inuitwallet/ALP-Server.git
     dest: /home/alp/code
 
 - name: create config directory
+  become: yes
   become_user: alp
   file:
     name: /home/alp/code/config
     state: directory
 
 - name: create exchanges config directory
+  become: yes
   become_user: alp
   file:
     name: /home/alp/code/config/exchanges
     state: directory
 
 - name: template pool_config file
+  become: yes
   become_user: alp
   template:
     src: pool_config.j2
-    dest: /home/alp/code/conf/pool_config
+    dest: /home/alp/code/config/pool_config
 
 - name: template test exchange config file
+  become: yes
   become_user: alp
   template:
     src: test_exchange.json.j2
-    dest: /home/alp/code/conf/exchanges/test_exchange.json
+    dest: /home/alp/code/config/exchanges/test_exchange.json
 
 - name: create virtualenv
+  become: yes
   become_user: alp
   shell: virtualenv ve
   args:
     chdir: /home/alp/code/
 
 - name: install requirements
+  become: yes
   become_user: alp
   pip:
     requirements: /home/alp/code/requirements.txt
