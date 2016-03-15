@@ -4,11 +4,14 @@
 ## Update apt, upgrade and install dependencies
 
 - name: update and upgrade
+  become: yes
   apt:
     update_cache: yes
     upgrade: dist
 
 - name: install dependencies
+  become: yes
+  apt:
     name: "{{ item }}"
     state: latest
   with_items:
