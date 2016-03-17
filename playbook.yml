@@ -44,6 +44,6 @@
     - install_postgresql
     - install_nginx
     - letsencrypt
-    #- install_nud
+    - install_nud
     - install_alp2
     #- install_supervisor

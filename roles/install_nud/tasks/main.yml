@@ -1,53 +1,52 @@
 ---
 
 #####
-##  Install ALPv2 Server
+##  Install nud
 
-- name: get ALPv2 code
+- name: get nud wallet
   become: yes
-  become_user: alp
-  git:
-    repo: https://github.com/inuitwallet/ALP-Server.git
-    dest: /home/alp/code
+  become_user: nud
+  unarchive:
+    copy: no
+    src: https://bitbucket.org/JordanLeePeershares/nubit/downloads/nu-2.0.3-linux-gitian.zip
+    dest: /home/nud/
 
-- name: create config directory
+- name: install nud as user binary
+  become: yes
+  command: mv /home/nud/bin/32/nud /usr/bin
+  when: ansible_architecture != "x86_64"
+
+- name: install nud as user binary
+  become: yes
+  command: mv /home/nud/bin/64/nud /usr/bin
+  when: ansible_architecture == "x86_64"
+
+- name: create .nud directory
+  become: yes
+  become_user: nud
+  file:
+   name: /home/nud/.nu
+   state: directory
+
+- name: template nu.conf
+  become: yes
+  become_user: nud
+  template:
+    src: nu.conf.j2
+    dest: /home/nud/.nu/nu.conf
+
+- name: create .nud directory for alp user
   become: yes
   become_user: alp
   file:
-    name: /home/alp/code/config
-    state: directory
+   name: /home/alp/.nu
+   state: directory
 
-- name: create exchanges config directory
-  become: yes
-  become_user: alp
-  file:
-    name: /home/alp/code/config/exchanges
-    state: directory
-
-- name: template pool_config file
+- name: template nu.conf for alp user
   become: yes
   become_user: alp
   template:
-    src: pool_config.j2
-    dest: /home/alp/code/conf/pool_config
-
-- name: template test exchange config file
-  become_user: alp
-  template:
-    src: test_exchange.json.j2
-    dest: /home/alp/code/conf/exchanges/test_exchange.json
-
-- name: create virtualenv
-  become_user: alp
-  shell: virtualenv ve
-  args:
-    chdir: /home/alp/code/
-
-- name: install requirements
-  become_user: alp
-  pip:
-    requirements: /home/alp/code/requirements.txt
-    virtualenv: /home/alp/code/ve
-
+    src: nu.conf.j2
+    dest: /home/alp/.nu/nu.conf
 
 
