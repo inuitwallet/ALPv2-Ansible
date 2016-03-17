@@ -43,7 +43,7 @@
     - create_alp_user
     - install_postgresql
     - install_nginx
-    #- letsencrypt
+    - letsencrypt
     #- install_nud
     - install_alp2
     #- install_supervisor

@@ -8,15 +8,17 @@
     repo: https://github.com/letsencrypt/letsencrypt
     dest: ~/letsencrypt
 
-- name: stop nginx
+- name: ensure webroot exists
   become: yes
-  supervisorctl:
-    name: nginx
-    state: stopped
-  ignore_errors: yes
+  file:
+    name: /var/www/letsencrypt
+    state: directory
+    owner: www-data
+    group: www-data
+    mode: 0700
 
 - name: run letsencrypt client
-  shell: ./letsencrypt-auto certonly --standalone --agree-tos --keep-until-expiring --email {{ letsencrypt_admin_email }} --rsa-key-size 4096 --text -d {{ pool_server_domain_name }}
+  shell: ./letsencrypt-auto certonly --webroot -w /var/www/letsencrypt --agree-tos --keep-until-expiring --email {{ letsencrypt_admin_email }} --rsa-key-size 4096 --text -d {{ pool_server_domain_name }}
   args:
     chdir: ~/letsencrypt
   register: output

@@ -1,0 +1,35 @@
+---
+
+#####
+##  Create the alp user
+#####
+
+- name: create alp group
+  become: yes
+  group:
+    name: alp
+
+- name: create alp user
+  become: yes
+  user:
+    name: alp
+    shell: /bin/bash
+    state: present
+    group: alp
+
+#####
+##  Create the nud user
+#####
+
+- name: create nud group
+  become: yes
+  group:
+    name: nud
+
+- name: create nud user
+  become: yes
+  user:
+    name: nud
+    shell: /bin/bash
+    state: present
+    group: nud
