@@ -40,7 +40,7 @@
   ##  These roles will be run in this order
   roles:
     - update_and_install_dependencies
-    - create_alp_user
+    - create_users
     - install_postgresql
     - install_nginx
     - letsencrypt
