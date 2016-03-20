@@ -11,7 +11,7 @@
 
   #####
   ##  This playbook is intended to be run on the server that it is configuring
-  hosts: 127.0.0.1
+  hosts: localhost
   connection: local
 
   #####
@@ -21,6 +21,11 @@
     #####
     ## ALP
     pool_name: NuPool
+
+    #####
+    ## Nud
+    nud_user: nurpc
+    nud_password: Party-Load-Worship-All-4
 
     #####
     ## PostgreSQL
@@ -43,7 +48,8 @@
     - create_users
     - install_postgresql
     - install_nginx
-    - letsencrypt
+    #- letsencrypt
     - install_nud
     - install_alp2
     #- install_supervisor
+    #- configure_firewall
