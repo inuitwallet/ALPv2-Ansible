@@ -3,12 +3,18 @@
 #####
 ##  Install nud
 
-- name: get nud wallet
+- name: download nud
+  become: yes
+  get_url:
+    url: https://bitbucket.org/JordanLeePeershares/nubit/downloads/nu-2.0.3-linux-gitian.zip
+    dest: /home/nud/nu-2.0.3-linux-gitian.zip
+
+- name: unarchive nud wallet
   become: yes
   become_user: nud
   unarchive:
     copy: no
-    src: https://bitbucket.org/JordanLeePeershares/nubit/downloads/nu-2.0.3-linux-gitian.zip
+    src: /home/nud/nu-2.0.3-linux-gitian.zip
     dest: /home/nud/
 
 - name: install nud as user binary
