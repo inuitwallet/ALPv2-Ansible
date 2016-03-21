@@ -4,7 +4,7 @@
 ##   The main playbook for installing ALPv2.
 ##   Intended for use with a modern Ubuntu version
 ##   First, ensure that your server is listed in the inventory file
-##   You need to be able to access the sewrver through SSH keys
+##   You need to be able to access the server through SSH keys
 ##   The user you log in as needs to have sudo rights
 
 - name: Install ALPv2
