@@ -16,6 +16,7 @@ echo installing ansible 2
 sudo apt-get install -y ansible
 
 echo fetching ansible repo
+rm -r ALPv2-Ansible
 git clone http://github.com/inuitwallet/ALPv2-Ansible
 
 echo moving to the Ansible directory
