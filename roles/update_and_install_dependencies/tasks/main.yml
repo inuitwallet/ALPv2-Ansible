@@ -15,6 +15,7 @@
     name: "{{ item }}"
     state: latest
   with_items:
+    - ca-certificates
     - fail2ban
     - git
     - libffi-dev

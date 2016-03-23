@@ -4,6 +4,26 @@
 ##  Install Nginx
 #####
 
+- name: update certificates
+  become: yes
+  command:  update-ca-certificates
+
+- name: create nginx ssl directory
+  become: yes
+  file:
+    path: /etc/nginx/ssl
+    state: directory
+    owner: root
+    group: root
+    mode: 0644
+
+- name: generate Diffie-Hellman prime
+  become: yes
+  command: openssl dhparam -rand - 2048 -out dhparam.pem
+  args:
+    chdir: /etc/nginx/ssl/
+    creates: /etc/nginx/ssl/dhparam.pem
+
 - name: template main nginx conf
   become: yes
   template:
