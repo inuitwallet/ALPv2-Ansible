@@ -17,4 +17,7 @@ Once Ansible 2.0 is installed, `install.sh` will use git to download the rest of
 ALPv2-Ansible git repo. It will then run the Ansible playbook with the command  
 `ansible-playbook playbook.yml -K`  
 The `-K` option will cause Ansible to prompt you for your sudo password. If you are 
-running `install.sh` as root, you can press `Enter` for a blank password
+running `install.sh` as root, you can press `Enter` for a blank password.  
+  
+The playbook will ask for a few things:  
+The name of your pool
