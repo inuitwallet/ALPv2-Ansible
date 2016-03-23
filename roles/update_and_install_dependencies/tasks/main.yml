@@ -15,15 +15,15 @@
     name: "{{ item }}"
     state: latest
   with_items:
+    - fail2ban
+    - git
+    - libffi-dev
     - python
     - python-dev
-    - libffi-dev
     - python-pip
     - python-virtualenv
-    - git
     - nginx
     - nginx-extras
+    - supervisor
     - unzip
-
-- debug:
-    msg: "{{ nud_password }}"
+    - vim
