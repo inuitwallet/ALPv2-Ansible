@@ -15,41 +15,42 @@
   connection: local
 
   vars:
-    nud_user: nurpc
-    postgresql_version: 9.5
+    #####
+    ## nud
+    nud_user: alp_nurpc_user
     nud_password: "{{ lookup('password', '/tmp/nudpasswordfile') }}"
+    #####
+    ## PostgreSQL
+    postgresql_version: 9.5
     root_postgresql_password: "{{ lookup('password', '/tmp/rootpostgrespasswordfile') }}"
     alp_user_postgres_password: "{{ lookup('password', '/tmp/alppostgrespasswordfile') }}"
 
   vars_prompt:
-
     #####
     ## ALP
     - name: pool_name
-      prompt: what is the name of your pool?
+      prompt: What is the name of your pool?
       private: no
-
     #####
     ## Nginx
     - name: pool_server_domain_name
-      prompt: what is the domain name where your pool can be accessed?
+      prompt: What is the domain name where your pool can be accessed?
       private: no
-
     #####
     ## LetsEncrypt
     - name: letsencrypt_admin_email
-      prompt: what email address would you like to use for notifiction of your ssl certificate expiry
+      prompt: Which email address would you like to be notified when your ssl certificate nears expiry?
       private: no
 
   #####
   ##  These roles will be run in this order
   roles:
     - update_and_install_dependencies
-    #- create_users
-    #- install_postgresql
-    #- install_nginx
-    #- letsencrypt
-    #- install_nud
-    #- install_alp2
-    #- install_supervisor
+    - create_users
+    - install_postgresql
+    - install_nginx
+    - letsencrypt
+    - install_nud
+    - install_alp2
+    - configure_supervisor
     #- configure_firewall
