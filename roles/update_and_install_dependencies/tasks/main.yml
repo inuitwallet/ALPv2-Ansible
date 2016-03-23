@@ -17,7 +17,6 @@
   with_items:
     - python
     - python-dev
-    - python-passlib
     - libffi-dev
     - python-pip
     - python-virtualenv
@@ -26,9 +25,5 @@
     - nginx-extras
     - unzip
 
-- name: test password generation
-  command: python -c "from passlib.hash import sha512_crypt; import getpass; print sha512_crypt.encrypt(getpass.getpass())"
-  register: password
-
 - debug:
-    msg: "{{ password }}"
+    msg: "{{ nud_password }}"
