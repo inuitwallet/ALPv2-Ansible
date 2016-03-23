@@ -1,0 +1,57 @@
+---
+
+- name: make sure alp user can run supervisor
+  lineinfile:
+    dest: /etc/sudoers.d/alp-supervisor
+    line: "alp ALL = (root) NOPASSWD:/usr/bin/supervisorctl"
+    state: present
+    create: yes
+
+- name: install nginx supervisor config
+  become: yes
+  template:
+    src: nginx.conf.j2
+    dest: /etc/supervisor/conf.d/nginx.conf
+    owner: root
+    group: root
+    mode: 0444
+
+- name: install alp supervisor config
+  become: yes
+  template:
+    src: alp.conf.j2
+    dest: /etc/supervisor/conf.d/alp.conf
+    owner: root
+    group: root
+    mode: 0444
+
+- name: install nud supervisor config
+  become: yes
+  template:
+    src: nud.conf.j2
+    dest: /etc/supervisor/conf.d/nud.conf
+    owner: root
+    group: root
+    mode: 0444
+
+- name: install postgresql supervisor config
+  become: yes
+  template:
+    src: postgresql.conf.j2
+    dest: /etc/supervisor/conf.d/postgresql.conf
+    owner: root
+    group: root
+    mode: 0444
+
+- name: start supervisord
+  become: yes
+  command: supervisord
+  ignore_errors: yes
+
+- name: update supervisord
+  become: yes
+  command: supervisor update
+
+- name: start all supervisord processes
+  become: yes
+  command: supervisor start all

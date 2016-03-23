@@ -1,0 +1,9 @@
+{{ ansible_managed }}
+
+[program:postgresql]
+command = /usr/lib/postgresql/{{ postgresql_version }}/bin/postgres -D /var/lib/postgresql/{{ postgresql_version }}/main -c config_file=/etc/postgresql/{{ postgresql_version }}/main/postgresql.conf
+autostart = true
+autorestart = true
+user = postgres
+redirect_stderr = true
+stdout_logfile = /home/alp/logs/postgresql.log

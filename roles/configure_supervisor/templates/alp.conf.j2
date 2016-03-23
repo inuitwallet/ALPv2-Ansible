@@ -1,0 +1,18 @@
+{{ ansible_managed }}
+
+[program:alp]
+directory = /home/alp/code
+environment = PYTHONPATH=.
+command = /home/alp/code/ve/bin/gunicorn
+  --bind 0.0.0.0:3333
+  --workers 3
+  --log-file /home/alp/logs/gunicorn.log
+  --preload
+  --user alp
+  --group alp
+  pool_server:app
+autostart = true
+autorestart = true
+user = alp
+redirect_stderr = true
+stdout_logfile = /home/alp/logs/alp.log

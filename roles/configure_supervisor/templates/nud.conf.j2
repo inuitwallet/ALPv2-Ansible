@@ -1,0 +1,7 @@
+{{ ansible_managed }}
+
+[program:nud]
+command = nud -datadir=/home/nud/.nu
+user = nud
+redirect_stderr = true
+stdout_logfile = /home/alp/logs/nud.log
