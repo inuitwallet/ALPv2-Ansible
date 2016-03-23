@@ -50,8 +50,8 @@
 
 - name: update supervisord
   become: yes
-  command: supervisor update
+  command: supervisorctl update
 
 - name: start all supervisord processes
   become: yes
-  command: supervisor start all
+  command: supervisorctl start all
