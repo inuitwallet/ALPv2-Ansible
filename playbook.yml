@@ -49,8 +49,9 @@
     - create_users
     - install_postgresql
     - install_nginx
-    - letsencrypt
     - install_nud
     - install_alp2
     - configure_supervisor
     - configure_firewall
+    - role: letsencrypt
+      when: letsencrypt_admin_email != ""
