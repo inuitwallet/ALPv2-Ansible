@@ -49,7 +49,7 @@
     - create_users
     - install_postgresql
     - install_nginx
-    - letsencrypt
+    #- letsencrypt
     - install_nud
     - install_alp2
     - configure_supervisor
