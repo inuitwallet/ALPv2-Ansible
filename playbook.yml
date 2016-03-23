@@ -39,7 +39,7 @@
     #####
     ## LetsEncrypt
     - name: letsencrypt_admin_email
-      prompt: Which email address would you like to be notified when your ssl certificate nears expiry?
+      prompt: Which email address would you like to be notified when your ssl certificate nears expiry? (Leave blank to skip certificate generation and serve the poool on http only)
       private: no
 
   #####
