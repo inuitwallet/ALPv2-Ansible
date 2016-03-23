@@ -29,7 +29,9 @@
   become: yes
   ufw:
     rule: allow
+
     port: https
     proto: tcp
     state: enabled
+  when: letsencrypt_admin_email != ""
 
