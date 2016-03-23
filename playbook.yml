@@ -14,42 +14,50 @@
   hosts: localhost
   connection: local
 
-  #####
-  ##  Fill in these variables before running
   vars:
+    nud_user: nurpc
+    postgresql_version: 9.5
+
+  vars_prompt:
 
     #####
     ## ALP
-    pool_name: NuPool
-
-    #####
-    ## Nud
-    nud_user: nurpc
-    nud_password: Party-Load-Worship-All-4
-
-    #####
-    ## PostgreSQL
-    postgresql_version: 9.5
-    root_postgresql_password: Sincere^Split#Rich%Cap&Offer&Far#Out%10
-    alp_user_postgres_password: Wake$Effective&Extreme#Relation!Horse&Material^Wheel^10
+    - name: pool_name
+      prompt: what is the name of your pool?
 
     #####
     ## Nginx
-    pool_server_domain_name: nupool.net
+    - name: pool_server_domain_name
+      prompt: what is the domain name where your pool can be accessed?
 
     #####
     ## LetsEncrypt
-    letsencrypt_admin_email: sam@mj2p.co.uk
+    - name: letsencrypt_admin_email
+      prompt: what email address would you like to use for notifiction of your ssl certificate expiry
+
+
+    #####
+    ## Nud
+    #- name: nud_password
+    #  prompt: create a password
+#
+#    #####
+#    ## PostgreSQL
+#
+#    root_postgresql_password: Sincere^Split#Rich%Cap&Offer&Far#Out%10
+#    alp_user_postgres_password: Wake$Effective&Extreme#Relation!Horse&Material^Wheel^10
+
+
 
   #####
   ##  These roles will be run in this order
   roles:
     - update_and_install_dependencies
-    - create_users
-    - install_postgresql
-    - install_nginx
+    #- create_users
+    #- install_postgresql
+    #- install_nginx
     #- letsencrypt
-    - install_nud
-    - install_alp2
+    #- install_nud
+    #- install_alp2
     #- install_supervisor
     #- configure_firewall
