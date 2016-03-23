@@ -79,3 +79,10 @@
     role_attr_flags: LOGIN
     password: "{{ alp_user_postgres_password }}"
 
+- name: Disable Postgresql daemon
+  become: yes
+  service:
+    name: postgresql
+    state: stopped
+    enabled: no
+
