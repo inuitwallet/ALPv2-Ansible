@@ -17,6 +17,9 @@
   vars:
     nud_user: nurpc
     postgresql_version: 9.5
+    nud_password: "{{ lookup('password', '/tmp/nudpasswordfile') }}"
+    root_postgresql_password: "{{ lookup('password', '/tmp/rootpostgrespasswordfile') }}"
+    alp_user_postgres_password: "{{ lookup('password', '/tmp/alppostgrespasswordfile') }}"
 
   vars_prompt:
 
@@ -24,30 +27,19 @@
     ## ALP
     - name: pool_name
       prompt: what is the name of your pool?
+      private: no
 
     #####
     ## Nginx
     - name: pool_server_domain_name
       prompt: what is the domain name where your pool can be accessed?
+      private: no
 
     #####
     ## LetsEncrypt
     - name: letsencrypt_admin_email
       prompt: what email address would you like to use for notifiction of your ssl certificate expiry
-
-
-    #####
-    ## Nud
-    #- name: nud_password
-    #  prompt: create a password
-#
-#    #####
-#    ## PostgreSQL
-#
-#    root_postgresql_password: Sincere^Split#Rich%Cap&Offer&Far#Out%10
-#    alp_user_postgres_password: Wake$Effective&Extreme#Relation!Horse&Material^Wheel^10
-
-
+      private: no
 
   #####
   ##  These roles will be run in this order
