@@ -1,6 +1,8 @@
 server {
   listen 80;
 
+  server_name {{ pool_server_domain_name }};
+
   location ^~ /.well-known/acme-challenge/ {
     default_type "text/plain";
     root /var/www;
