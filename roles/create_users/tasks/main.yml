@@ -17,6 +17,22 @@
     state: present
     group: alp
 
+- name: create the logs directory for the alp user
+  file:
+    name: /home/alp/logs
+    state: directory
+    owner: alp
+    group: alp
+    mode: 0755
+
+- name: create the logs/nginx directory for the nginx access and error logs
+  file:
+    name: /home/alp/logs/nginx
+    state: directory
+    owner: alp
+    group: alp
+    mode: 0755
+
 #####
 ##  Create the nud user
 #####
