@@ -9,8 +9,9 @@ conflicts if for example, a different user has been used to run the Nu daemon.
 ##Usage
 Copy the `install.sh` script to your machine and run it with  
 `sh install.sh`  
-Answer the questions and Ansibel will do the rest.  
-
+Answer the questions and Ansible will do the rest.  
+  
+  
 ##Explanation
   
 `install.sh` will add the latest Ansible apt repository and then install git and 
@@ -37,6 +38,8 @@ Once it is running the playbook will run the roles in a certain order and will f
   * Install and configure [Supervisord](http://supervisord.org/), used to manage the four programs listed above and restart them if they crash.
   * Configure the firewall to allow traffic only on port 22 (SSH), 80 (HTTP) and optionally 443 (HTTPS).
   * Optionally, register a free SSL certificate and reconfigure Nginx to encrypt traffic to the ALPv2 server (recommended)
+  
+  
 
 ###Control and further setup
 
